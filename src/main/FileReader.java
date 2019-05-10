@@ -8,6 +8,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class FileReader {
 	private File file;
 	private Scanner fileIn;
@@ -58,14 +61,16 @@ public class FileReader {
 		
 		if (obj.containsKey("class")) {
 			if (obj.get("class").equals(selector)) {
-				System.out.println(obj);
+				Gson g = new GsonBuilder().setPrettyPrinting().create();
+				System.out.println(g.toJson(obj));
 				count += 1;
 			}
 		}
 		
 		if (obj.containsKey("identifier")) {
 			if (obj.get("identifier").equals(selector)) {
-				System.out.println(obj);
+				Gson g = new GsonBuilder().setPrettyPrinting().create();
+				System.out.println(g.toJson(obj));
 				count += 1;
 			}
 		}
@@ -74,7 +79,8 @@ public class FileReader {
 			JSONArray classnames = (JSONArray) obj.get("classNames");
 			for (int i = 0; i < classnames.size(); i++) {
 				if (classnames.get(i).equals(selector)) {
-					System.out.println(obj);
+					Gson g = new GsonBuilder().setPrettyPrinting().create();
+					System.out.println(g.toJson(obj));
 					count += 1;
 				}
 			}

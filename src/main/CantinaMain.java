@@ -9,7 +9,7 @@ public class CantinaMain {
 		try {
 			while(true) {
 				String selector = in.next();
-				System.out.println(fr.find(selector));
+				System.out.println("Found " + fr.find(selector) + " instances of " + selector);
 			}
 		} finally {
 			in.close();
