@@ -20,6 +20,7 @@ public class FileReader {
 	}
 
 	private JSONObject fileToJson() {
+		// Read the file and create a JSON object from its contents
 		try {
 			fileIn = new Scanner(file);
 			JSONParser parser = new JSONParser();
@@ -36,6 +37,7 @@ public class FileReader {
 	}
 	
 	public int find(String selector) {
+		// Find all instances of a given selector
 		JSONObject obj = fileToJson();
 		if (obj != null) {
 			return find(obj, selector);
@@ -44,20 +46,26 @@ public class FileReader {
 	}
 	
 	private int find(JSONObject obj, String selector) {
+		// Recursively search the given JSONObject for a given selector and print all found instances
 		int count = 0;
 		if (obj.containsKey("contentView")) {
+			// find selector within the contentView
 			count += find((JSONObject) obj.get("contentView"), selector);
 		}
 		
 		if (obj.containsKey("control")) {
+			// find selector within the control view
 			count += find((JSONObject) obj.get("control"), selector);
 		}
 		
 		if (obj.containsKey("subviews")) {
 			for (int i = 0; i < ((JSONArray) obj.get("subviews")).size(); i++) {
+				// find the selector in any subviews
 				count += find((JSONObject)((JSONArray) obj.get("subviews")).get(i), selector);
 			}
 		}
+		
+		// print all found instances of the selector
 		
 		if (obj.containsKey("class")) {
 			if (obj.get("class").equals(selector)) {
